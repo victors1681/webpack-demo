@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Counter from "./View/Counter";
 
-const content = "This is my react app";
-
-ReactDOM.render(<div>{content}</div>, document.getElementById("mainApp"));
+ReactDOM.render(<Counter />, document.getElementById("mainApp"));
