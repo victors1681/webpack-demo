@@ -5,7 +5,8 @@ module.exports = env => {
     mode:
       env.NODE_ENV.development === "development" ? "development" : "production",
     entry: {
-      app: [path.resolve(__dirname, "./src/index.js")]
+      app: [path.resolve(__dirname, "./src/index.js")],
+      vendors: ["react", "react-dom"]
     }
   };
   return config;
