@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config webpack.config.js --env.NODE_ENV=development",
+    "start": "webpack-dev-server --config webpack.config.js --env.NODE_ENV=development",
     "build": "webpack --config webpack.config.js -- env.NODE_ENV=production"
   },
   "repository": {
@@ -25,7 +25,8 @@
   "homepage": "https://github.com/victors1681/webpack-demo#readme",
   "devDependencies": {
     "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
     "react": "^16.6.3",

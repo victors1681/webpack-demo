@@ -22,6 +22,11 @@ module.exports = env => {
         path.resolve(__dirname, "./src"),
         path.resolve(__dirname, "./node_modules")
       ]
+    },
+    devServer: {
+      contentBase: path.join(__dirname, "public"),
+      compress: true,
+      port: 9000
     }
   };
   return config;
