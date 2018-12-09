@@ -7,6 +7,10 @@ module.exports = env => {
     entry: {
       app: [path.resolve(__dirname, "./src/index.js")],
       vendors: ["react", "react-dom"]
+    },
+    output: {
+      path: path.join(__dirname, ".", "myDistribution", "ui"),
+      filename: "js/[name]".concat(".[chunkhash:8].js")
     }
   };
   return config;
