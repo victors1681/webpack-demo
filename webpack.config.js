@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = env => {
   const config = {
@@ -27,7 +28,15 @@ module.exports = env => {
       contentBase: path.join(__dirname, "public"),
       compress: true,
       port: 9000
-    }
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: "index.html",
+        template: path.join(__dirname, "public/index.html"),
+        inject: true,
+        chunks: ["app", "vendors"]
+      })
+    ]
   };
   return config;
 };
