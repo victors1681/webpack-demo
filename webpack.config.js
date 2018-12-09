@@ -36,7 +36,16 @@ module.exports = env => {
         inject: true,
         chunks: ["app", "vendors"]
       })
-    ]
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.(js)$/,
+          exclude: /node_modules/,
+          use: ["babel-loader"]
+        }
+      ]
+    }
   };
   return config;
 };
