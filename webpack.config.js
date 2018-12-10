@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = env => {
   const config = {
@@ -36,7 +38,8 @@ module.exports = env => {
         template: path.join(__dirname, "public/index.html"),
         inject: true,
         chunks: ["app", "vendors"]
-      })
+      }),
+      env.analyze && new BundleAnalyzerPlugin()
     ],
     module: {
       rules: [
@@ -48,6 +51,15 @@ module.exports = env => {
       ]
     },
     optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all"
+          }
+        }
+      },
       minimizer: [
         new TerserPlugin({
           cache: true,

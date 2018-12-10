@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config webpack.config.js --env.NODE_ENV=development",
-    "build": "webpack --config webpack.config.js --env.NODE_ENV=production"
+    "build": "webpack --config webpack.config.js --env.NODE_ENV=production",
+    "analyze": "npm run start -- --env.analyze"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "html-webpack-plugin": "^3.2.0",
     "terser-webpack-plugin": "^1.1.0",
     "webpack": "^4.27.1",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   },
