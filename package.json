@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config webpack.config.js --env.NODE_ENV=development",
-    "build": "webpack --config webpack.config.js -- env.NODE_ENV=production"
+    "build": "webpack --config webpack.config.js --env.NODE_ENV=production"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
     "html-webpack-plugin": "^3.2.0",
+    "terser-webpack-plugin": "^1.1.0",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
