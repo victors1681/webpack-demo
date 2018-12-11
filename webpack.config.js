@@ -49,7 +49,7 @@ module.exports = env => {
         {
           test: /\.(js)$/,
           exclude: /node_modules/,
-          use: ["babel-loader"]
+          use: ["cache-loader", "babel-loader?cacheDirectory", "thread-loader"]
         }
       ]
     },
