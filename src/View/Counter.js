@@ -1,4 +1,5 @@
 import React from "react";
+import "./Counter.scss";
 
 export default class Counter extends React.PureComponent {
   state = {
@@ -10,12 +11,12 @@ export default class Counter extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <p>This is my counter</p>
-        <p>Counter is: {this.state.counter}</p>
-        <p>
-          <button onClick={this.increaseCounter}>Increase</button>
-        </p>
+      <div className="counter-wrapper">
+        <h1 className="counter-header">This is my counter</h1>
+        <p className="counter-result">Counter is: {this.state.counter}</p>
+        <button className="counter-button" onClick={this.increaseCounter}>
+          Increase
+        </button>
       </div>
     );
   }

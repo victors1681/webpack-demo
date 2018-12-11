@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const getPlugins = env =>
   [
@@ -12,7 +14,10 @@ const getPlugins = env =>
       inject: true,
       chunks: ["app", "vendors"]
     }),
-    env.analyze && new BundleAnalyzerPlugin()
+    env.analyze && new BundleAnalyzerPlugin(),
+    new MiniCssExtractPlugin({
+      filename: env.development ? "[name].css" : "css/[name].[chunkhash:8].css"
+    })
   ].filter(plugin => plugin);
 
 module.exports = env => {
@@ -50,6 +55,14 @@ module.exports = env => {
           test: /\.(js)$/,
           exclude: /node_modules/,
           use: ["cache-loader", "babel-loader?cacheDirectory", "thread-loader"]
+        },
+        {
+          test: /\.(sc|c)ss$/,
+          use: [
+            env.development ? "style-loader" : MiniCssExtractPlugin.loader,
+            "css-loader",
+            "sass-loader"
+          ]
         }
       ]
     },
@@ -60,6 +73,12 @@ module.exports = env => {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",
             chunks: "all"
+          },
+          styles: {
+            test: /\.css$/,
+            name: "styles",
+            chunks: "all",
+            enforce: true
           }
         }
       },
@@ -79,6 +98,14 @@ module.exports = env => {
               beautify: false
             }
           }
+        }),
+        new OptimizeCssAssetsPlugin({
+          assetNameRegExp: /\.css$/g,
+          cssProcessor: require("cssnano"),
+          cssProcessorPluginOptions: {
+            preset: ["default", { discardComments: { removeAll: true } }]
+          },
+          canPrint: true
         })
       ]
     }
