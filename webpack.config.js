@@ -4,6 +4,17 @@ const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
+const getPlugins = env =>
+  [
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: path.join(__dirname, "public/index.html"),
+      inject: true,
+      chunks: ["app", "vendors"]
+    }),
+    env.analyze && new BundleAnalyzerPlugin()
+  ].filter(plugin => plugin);
+
 module.exports = env => {
   const config = {
     mode:
@@ -32,15 +43,7 @@ module.exports = env => {
       compress: true,
       port: 9000
     },
-    plugins: [
-      new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: path.join(__dirname, "public/index.html"),
-        inject: true,
-        chunks: ["app", "vendors"]
-      }),
-      env.analyze && new BundleAnalyzerPlugin()
-    ],
+    plugins: getPlugins(env),
     module: {
       rules: [
         {
