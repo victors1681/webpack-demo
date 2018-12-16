@@ -12,7 +12,7 @@ export default class Counter extends React.PureComponent {
   render() {
     return (
       <div className="counter-wrapper">
-        <h1 className="counter-header">This is my counter</h1>
+        <h1 className="counter-header">This is my counter Hot Load</h1>
         <p className="counter-result">Counter is: {this.state.counter}</p>
         <button className="counter-button" onClick={this.increaseCounter}>
           Increase

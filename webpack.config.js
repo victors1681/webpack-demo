@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const webpack = require("webpack");
 
 const getPlugins = env =>
   [
@@ -16,21 +17,23 @@ const getPlugins = env =>
     }),
     env.analyze && new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
-      filename: env.development ? "[name].css" : "css/[name].[chunkhash:8].css"
-    })
+      filename: env.NODE_ENV === "development" ? "[name].css" : "css/[name].[chunkhash:8].css"
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ].filter(plugin => plugin);
 
 module.exports = env => {
+ 
   const config = {
     mode:
-      env.NODE_ENV.development === "development" ? "development" : "production",
+      env.NODE_ENV === "development" ? "development" : "production",
     entry: {
       app: [path.resolve(__dirname, "./src/index.js")],
       vendors: ["react", "react-dom"]
     },
     output: {
       path: path.join(__dirname, ".", "myDistribution", "ui"),
-      filename: "js/[name]".concat(".[chunkhash:8].js")
+      filename: env.NODE_ENV === "development" ? "app.js" : "js/[name]".concat(".[chunkhash:8].js")
     },
     resolve: {
       alias: {
@@ -46,7 +49,8 @@ module.exports = env => {
     devServer: {
       contentBase: path.join(__dirname, "public"),
       compress: true,
-      port: 9000
+      port: 9000,
+      hot: true,
     },
     plugins: getPlugins(env),
     module: {
@@ -59,7 +63,7 @@ module.exports = env => {
         {
           test: /\.(sc|c)ss$/,
           use: [
-            env.development ? "style-loader" : MiniCssExtractPlugin.loader,
+            env.NODE_ENV === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
             "css-loader",
             "sass-loader"
           ]
