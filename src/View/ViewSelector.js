@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "./Login/Login";
 import Counter from "./Counter";
+import { hot } from 'react-hot-loader'
 
 class ViewSelector extends React.Component {
   state = {
@@ -20,4 +21,4 @@ class ViewSelector extends React.Component {
     );
   }
 }
-export default ViewSelector;
+export default hot(module)(ViewSelector);
