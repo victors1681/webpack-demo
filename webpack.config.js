@@ -26,7 +26,6 @@ const getPlugins = env =>
   ].filter(plugin => plugin);
 
 module.exports = env => {
-  console.log("THISSSSS MODE", env.NODE_ENV === "production");
   const config = {
     mode:
       env.NODE_ENV === "development" ? "development" : "production",
@@ -37,9 +36,7 @@ module.exports = env => {
     output: {
       path: path.join(__dirname, ".", "myDistribution", "ui"),
       filename: env.NODE_ENV === "development" ? "app.js" : "js/[name]".concat(".[chunkhash:8].js"),
-     // sourceMapFilename: "[file].map",
-      //chunkFilename: env.NODE_ENV === "development" ? "js/[name].js" : "js/[name]".concat(".[chunkhash:8].js"),
-    },
+   },
     resolve: {
       alias: {
         view: path.resolve(__dirname, "./src/View"),
