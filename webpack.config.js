@@ -6,6 +6,8 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpack = require("webpack");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 const getPlugins = env =>
   [
@@ -19,11 +21,12 @@ const getPlugins = env =>
     new MiniCssExtractPlugin({
       filename: env.NODE_ENV === "development" ? "[name].css" : "css/[name].[chunkhash:8].css"
     }),
-    env.NODE_ENV.development && webpack.HotModuleReplacementPlugin()
+    env.NODE_ENV === "development" && new webpack.HotModuleReplacementPlugin(),
+    env.NODE_ENV === "production"  && new CleanWebpackPlugin(['myDistribution/ui/js', 'myDistribution/ui/css'])
   ].filter(plugin => plugin);
 
 module.exports = env => {
- 
+  console.log("THISSSSS MODE", env.NODE_ENV === "production");
   const config = {
     mode:
       env.NODE_ENV === "development" ? "development" : "production",
