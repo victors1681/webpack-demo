@@ -4,7 +4,7 @@
 
 This repo is used by Medium tutorial to learn about all basic Webpack configuration.
 
-Webpack 4 boilerplate with Babel, SASS, DevServer, HMR and Performances and Optimization Techniques.
+> Webpack 4 boilerplate with Babel, SASS, DevServer, HMR and Performances and Optimization Techniques.
 
 ## Medium Post
 
